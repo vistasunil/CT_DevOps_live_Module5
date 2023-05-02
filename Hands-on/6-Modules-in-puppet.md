@@ -68,7 +68,7 @@ Here we create a resource that ensures that a file, _/tmp/module\_test.txt_, exi
 class my_module::my_class{
   file{'/tmp/module_test.txt':
     content => 'This file is created by a module',
-    mode => '0644',
+    mode    => '0644',
   }
 }
 ```
@@ -202,7 +202,7 @@ _Packages are portable unit that can be shipped or published to puppet forge for
 
 ### Step 12: Next, we will install the module by referring the tar.gz file from the last output. Since, here we are installing on same puppet server, so we will remove the existing my\_module folder to /tmp:
 
-`sudo /opt/puppetlabs/bin/puppet module install /tmp/my\_module/pkg/cloudtrain-my\_module-0.1.0.tar.gz`
+`sudo /opt/puppetlabs/bin/puppet module install /tmp/my_module/pkg/cloudtrain-my_module-0.1.0.tar.gz`
 
 ![image](https://user-images.githubusercontent.com/37858762/235784767-756b69f0-d4cf-4dea-8686-3f263684aed2.png)
 
