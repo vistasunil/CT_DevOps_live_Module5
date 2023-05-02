@@ -1,0 +1,277 @@
+<div align="center">
+<img src=https://static.wixstatic.com/media/1c706c_a5df0ad56f894928bf858a74ba744b32~mv2.png/v1/fit/w_2500,h_1330,al_c/1c706c_a5df0ad56f894928bf858a74ba744b32~mv2.png width="400" height="200">
+ </div>
+
+# <div align="center"> PUPPET MODULES </p>
+
+# <div align="center"> DevOps Instructor-led Training </div>
+
+<br />
+
+<br />
+
+<br />
+
+<br />
+
+# $${\color{brown} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Contact&emsp;us: &emsp;&emsp;&emsp; }$$
+
+<div align="right"> T O A C C E L E R A T E Y O U R C A R E E R G R O W T H </div>
+
+### <div align="right"> For questions and more details: </div>
+
+<div align="right"> <img src=https://w7.pngwing.com/pngs/759/922/png-transparent-telephone-logo-iphone-telephone-call-smartphone-phone-electronics-text-trademark-thumbnail.png width="20" height="20"> +91 98712 72900 </div>
+
+<div align="right"> <img src=https://pbs.twimg.com/profile_images/1450734615946219520/jmBHQRRa_400x400.jpg width="20" height="20"> https://www.thecloudtrain.com </div>
+
+<div align="right"> <img src=https://icons.iconarchive.com/icons/martz90/circle/512/email-icon.png width="20" height="20"> support@thecloudtrain.com </div>
+
+<div align="right"> <img src=https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-whatsapp-icon-png-image_6315990.png width="20" height="20"> +91 98712 72900 </div>
+
+## CREATING MODULES IN PUPPET
+
+### Steps for Puppet Master
+
+**Note: Make sure you have installed pdk during the install of puppet.**
+
+### Step 1: Navigate to **/etc/puppetlabs/code/environments/production/modules/** folder
+
+`cd /etc/puppetlabs/code/environments/production/modules/`
+
+![](RackMultipart20230502-1-dox0hv_html_88167df050462ad9.png)
+
+### Step 2: You have successfully created the module. Change into the following directory **./my_module/manifests**. We next create a class in the module.
+
+_Classes are named blocks of Puppet code that are stored in modules and applied later when they are invoked by name. You can add classes to a node's catalog by either declaring them in your manifests or assigning them from an external node classifier (ENC). Classes generally configure large or medium-sized chunks of functionality, such as all of the packages, configuration files, and services needed to run an application__._
+
+`sudo pdk new class my_class`
+
+![](RackMultipart20230502-1-dox0hv_html_c32f31a00b594ac4.png)
+
+This will create two files; one of which we will be updating (_modules/my\_module/manifests/my\_class.pp )_.
+
+### Step 3: Next, we add a resource to the class.
+
+_A resource declaration adds a resource to the catalog and tells Puppet to manage that resource's state._
+
+_When Puppet applies the compiled catalog, it:
+ 1. Reads the actual state of the resource on the target system.
+ 2. Compares the actual state to the desired state.
+ 3. If necessary, changes the system to enforce the desired state.
+ 4. Logs any changes made to the resource. These changes appear in Puppet agent's log and in the run report, which is sent to the master and forwarded to any specified report processors._
+
+Here we create a resource that ensures that a file, _/tmp/module\_test.txt_, exists with the content 'This file is created by a module' on each of the target systems. We update the class, _modules/my\_module/manifests/my\_class.pp_, to the following:
+
+![Shape9](RackMultipart20230502-1-dox0hv_html_b0871827305e3921.gif)
+
+class my\_module::my\_class{
+
+file{'/tmp/module\_test.txt':
+
+content =\> 'This file is created by a module',
+
+mode =\> '0644',
+
+}
+
+}
+
+![](RackMultipart20230502-1-dox0hv_html_d1152dc17349c5aa.png)
+
+![Shape10](RackMultipart20230502-1-dox0hv_html_a3f7af61aaf0f7f8.gif)
+
+`sudo pdk validate
+
+### Step 4:  **Validate the module:
+
+cd to the **my\_module** directory of not already there, and pass the following command:
+
+![](RackMultipart20230502-1-dox0hv_html_ba5ac03871577538.png)
+
+### Step 5: Now we need to designate which systems to apply the _my\_class_ class to by creating a site manifest; starting with an empty file _manifests/site.pp_.
+
+_Puppet starts compiling a catalog either with a single manifest file or with a directory of manifests that are treated like a single file. This starting point is called the main manifest or site manifest._
+
+In the site manifest, we include one or more node definitions.
+
+_A node definition, also known as a node statement, is a block of Puppet code that is included only in matching nodes' catalogs. This allows you to assign specific configurations to specific nodes._
+
+_Put node definitions in the main manifest, which can be a single site.pp file, or a directory containing many files._
+
+_If the main manifest contains at least one node definition, it must have one for every node. Compilation for a node fails if a node definition for it cannot be found. Either specify no node definitions, or use the default node definition, as described below, to avoid this situation._
+
+Here we want to declare (essentially applying) _my\_class_ to all systems (nodes); we update _manifests/site.pp. Navigate to directory /etc/puppetlabs/code/environments/production/manifests and add file site.pp with below contents:_
+
+node default {
+
+include my\_module::my\_class
+
+}
+
+![Shape11](RackMultipart20230502-1-dox0hv_html_ffdff3d5cc68bc17.gif)
+
+![](RackMultipart20230502-1-dox0hv_html_295d00ab2c41f2cf.png)
+
+### Step 6: While Puppet agent, by default, is configured to apply updates every 30 minutes (runinterval = 1800), we can expedite an update by executing the following command as root on a system with a connected Puppet agent. Go to agent server and run below command to pull the changes:
+
+`sudo /opt/puppetlabs/bin/puppet agent --test
+
+![Shape12](RackMultipart20230502-1-dox0hv_html_b3d41ee564b9fe0.gif)
+
+![](RackMultipart20230502-1-dox0hv_html_8006ac86acd35d86.png)
+
+_The output indicates that it applied our class and we can confirm the result by executing:_
+
+![](RackMultipart20230502-1-dox0hv_html_8006ac86acd35d86.png)
+
+### Step 7: Module's Main Class
+
+Here we explore using a number of classes from a module without having to explicitly include each one into a node definition. We do this by using a module's main class.
+
+The init.pp class, if used, is the main class of the module. This class's name must match the module's name.
+
+Let us start by creating a second class in the module; within the _modules/my\_module _folder, we execute:
+
+sudo pdk new class another\_class
+
+![Shape13](RackMultipart20230502-1-dox0hv_html_a3f7af61aaf0f7f8.gif)
+
+![](RackMultipart20230502-1-dox0hv_html_e36319e6281cc4f4.png)
+
+### Step 8: Update _modules/my\_module/manifests/another\_class.pp_ to:
+
+# @summary A short summary of the purpose of this class
+
+#
+
+# A description of what this class does
+
+#
+
+# @example
+
+# include my\_module::another\_class
+
+class my\_module::another\_class {
+
+file { '/tmp/another':
+
+ensure =\> 'present',
+
+content =\> 'Another Hello World',
+
+path =\> '/tmp/another',
+
+}
+
+}
+
+![Shape14](RackMultipart20230502-1-dox0hv_html_b427dc157d77bfae.gif)
+
+![](RackMultipart20230502-1-dox0hv_html_54477b5e28fb3e57.png)
+
+### Step 9: Next, we create the main class; within the modules/my\_module folder, we execute:
+
+`sudo pdk new class my\_module
+
+![Shape15](RackMultipart20230502-1-dox0hv_html_a3f7af61aaf0f7f8.gif)
+
+![](RackMultipart20230502-1-dox0hv_html_cb8f4a06d4dcbd12.png)
+
+_ **Things to observe: _
+
+_The class is named the same as the module; my\_module_
+
+_A file, modules/my\_module/manifests/init.pp, is created_
+
+# @summary A short summary of the purpose of this class
+
+#
+
+# A description of what this class does
+
+#
+
+# @example
+
+# include my\_module
+
+class my\_module {
+
+include my\_module::my\_class
+
+include my\_module::another\_class
+
+}
+
+_We now update modules/my\_module/manifests/init.pp to include the other two modules: ![Shape16](RackMultipart20230502-1-dox0hv_html_68e817b8bb4a2a1e.gif)_
+
+![](RackMultipart20230502-1-dox0hv_html_fad2f5e95a6c3804.png)
+
+### Step 9: With this in place, we can now update _manifests/site.pp_ to. cd to directory /etc/puppetlabs/code/environments/production/manifests and update site.pp:
+
+node default {
+
+include my\_module
+
+}
+
+![Shape17](RackMultipart20230502-1-dox0hv_html_194ca3aa1fbe7918.gif)
+
+![](RackMultipart20230502-1-dox0hv_html_e9b43eb440a1b32f.png)
+
+### Step 10: Pull the changes on agent:
+
+`sudo /opt/puppetlabs/bin/puppet agent --test
+
+![Shape18](RackMultipart20230502-1-dox0hv_html_b3d41ee564b9fe0.gif)
+
+![](RackMultipart20230502-1-dox0hv_html_85904200f00df0c7.png)
+
+With these changes, the systems with a connected Puppet agent will now (after the 30-minute update) have two files, _module\_test.txt_ and _another_, in the _/tmp_ folder. Again, we can expedite this by manually triggering an update.
+
+### Step 11: Build module to package. The generated package will be place in pkg folder inside module directory itself.
+
+_Packages are portable unit that can be shipped or published to puppet forge for distributed access:_
+
+`sudo pdk build
+
+![Shape19](RackMultipart20230502-1-dox0hv_html_b3d41ee564b9fe0.gif)
+
+![](RackMultipart20230502-1-dox0hv_html_15868d9a77cf3309.png)
+
+### Step 12: Next, we will install the module by referring the tar.gz file from the last output. Since, here we are installing on same puppet server, so we will remove the existing my\_module folder to /tmp:
+
+`sudo /opt/puppetlabs/bin/puppet module install /tmp/my\_module/pkg/cloudtrain-my\_module-0.1.0.tar.gz
+
+![Shape20](RackMultipart20230502-1-dox0hv_html_3ec13ac8cce0e691.gif)
+
+![](RackMultipart20230502-1-dox0hv_html_f361ce879f568a34.png)
+
+### Step 13: Finally, go to the main manifest file in **/etc/puppetlabs/code/environments/production/manifests/site.pp and** include the following code:
+
+node default{
+
+include my\_module
+
+}
+
+![Shape21](RackMultipart20230502-1-dox0hv_html_ffdff3d5cc68bc17.gif)
+
+![](RackMultipart20230502-1-dox0hv_html_e195eccfc1cfcb3f.png)
+
+**On Puppet Agent**
+
+### Step 14: Remove existing files in /tmp (if any) and execute the following command to pull the changes from installed module:
+
+![Shape22](RackMultipart20230502-1-dox0hv_html_beaa61d0757f040a.gif)
+
+`sudo /opt/puppetlabs/bin/puppet agent --test
+
+![](RackMultipart20230502-1-dox0hv_html_43207ad445592e4b.png)
+
+### Step 15: Verify the configuration change by checking /tmp/module\_test.txt and /tmp/another
+
+![](RackMultipart20230502-1-dox0hv_html_da866d2e94c2136.png)
+
+www.thecloudtrain.com
