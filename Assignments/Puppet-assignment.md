@@ -33,12 +33,12 @@
 ### Complete below tasks as part of this exercise:
 
 1. Create a Puppet Manifest in production environment to perform below actions on slave nodes:
-  a. Install nginx first
-  b. Write the status of nginx installation as "nginx installed successfully!!" in a file /tmp/sw\_status.txt
-  c. Install apache now
-  d. Append the same file /tmp/sw\_status.txt with status of apache installation as "apache installed successfully!!"
-  e. Apache service must have failed to start because nginx is running on port 80. So, stop nginx service
-  f. Start apache service only if nginx is stopped
+  1. Install nginx first
+  2. Write the status of nginx installation as "nginx installed successfully!!" in a file /tmp/sw\_status.txt
+  3. Install apache now
+  4. Append the same file /tmp/sw\_status.txt with status of apache installation as "apache installed successfully!!"
+  5. Apache service must have failed to start because nginx is running on port 80. So, stop nginx service
+  6. Start apache service only if nginx is stopped
 
 ## Exercise 2: Puppet Variables
 
