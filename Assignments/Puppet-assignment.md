@@ -44,29 +44,28 @@
 
 ### Complete below tasks as part of this exercise:
 
-1. Create a Puppet Manifest in production environment to perform below actions on slave nodes:
-  a. Set a variable 'content' with some data to write in a file
-  b. Create a file using the data in **content** variable with below properties:
-    (i). Name: /tmp/test\_vars.txt
-    (ii). Owner: ubuntu
-    (iii). Group: ubuntu
-    (iv). Permissions: 0644
-  c. Now, take an array type variable **packages** containing list of packages to be installed. List should contain apache, nginx
-  d. Use this variable to first uninstall the packages installed in exercise 1 using one resource only
-  e. Add one more package mysql to array **packages**
-  f. Install all the software in **packages** using one resource only
+* Create a Puppet Manifest in production environment to perform below actions on slave nodes:
+  * Set a variable 'content' with some data to write in a file
+  * Create a file using the data in **content** variable with below properties:
+    *. Name: /tmp/test\_vars.txt
+    *. Owner: ubuntu
+    *. Group: ubuntu
+    *. Permissions: 0644
+  * Now, take an array type variable **packages** containing list of packages to be installed. List should contain apache, nginx
+  * Use this variable to first uninstall the packages installed in exercise 1 using one resource only
+  * Add one more package mysql to array **packages**
+  * Install all the software in **packages** using one resource only
 
 ## Exercise 3: Case Study
 
 **You work for a Software Company. Recently the company got funding and they have decided to expand their server fleet. You have been designated the task for Configuration Management:**
 
-1. Assume the following infrastructure:
-  a. One Nginx Server
-  b. One Apache Server
-  c. One Puppet Master
-
-2. On Apache Server, we have to install docker and on the nginx server, we have to install Java.
-3. It sounds straightforward, but we do not know, which systems have what software installed on it.
-4. Using conditional statements, accomplish the above task.
-5. Also, for improving code readability, please make use of modules and classes.
-f. Validate and Package this module using pdk and save the tar file to /tmp folder for reusability.
+* Assume the following infrastructure:
+  * One Nginx Server
+  * One Apache Server
+  * One Puppet Master
+* On Apache Server, we have to install docker and on the nginx server, we have to install Java.
+* It sounds straightforward, but we do not know, which systems have what software installed on it.
+* Using conditional statements, accomplish the above task.
+* Also, for improving code readability, please make use of modules and classes.
+* Validate and Package this module using pdk and save the tar file to /tmp folder for reusability.
