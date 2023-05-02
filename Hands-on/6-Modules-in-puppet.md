@@ -152,7 +152,7 @@ class my_module::another_class {
 
 ![image](https://user-images.githubusercontent.com/37858762/235784382-defed2e7-aa83-4f60-bdc2-9d2cdbdf859b.png)
 
-_ **Things to observe: _
+**Things to observe:
 
 _The class is named the same as the module; my\_module_
 
