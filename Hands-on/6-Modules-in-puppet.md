@@ -38,7 +38,7 @@
 
 `cd /etc/puppetlabs/code/environments/production/modules/`
 
-![](RackMultipart20230502-1-dox0hv_html_88167df050462ad9.png)
+![image](https://user-images.githubusercontent.com/37858762/235783916-94556f03-7b8c-4557-9db2-5c41b7a49531.png)
 
 ### Step 2: You have successfully created the module. Change into the following directory **./my_module/manifests**. We next create a class in the module.
 
@@ -46,7 +46,7 @@ _Classes are named blocks of Puppet code that are stored in modules and applied 
 
 `sudo pdk new class my_class`
 
-![](RackMultipart20230502-1-dox0hv_html_c32f31a00b594ac4.png)
+![image](https://user-images.githubusercontent.com/37858762/235783952-6ae47bc8-75d2-4f4c-9591-123d09772640.png)
 
 This will create two files; one of which we will be updating (_modules/my\_module/manifests/my\_class.pp )_.
 
@@ -62,31 +62,24 @@ _When Puppet applies the compiled catalog, it:
 
 Here we create a resource that ensures that a file, _/tmp/module\_test.txt_, exists with the content 'This file is created by a module' on each of the target systems. We update the class, _modules/my\_module/manifests/my\_class.pp_, to the following:
 
-![Shape9](RackMultipart20230502-1-dox0hv_html_b0871827305e3921.gif)
-
-class my\_module::my\_class{
-
-file{'/tmp/module\_test.txt':
-
-content =\> 'This file is created by a module',
-
-mode =\> '0644',
-
+```
+class my_module::my_class{
+  file{'/tmp/module_test.txt':
+    content => 'This file is created by a module',
+    mode => '0644',
+  }
 }
+```
 
-}
-
-![](RackMultipart20230502-1-dox0hv_html_d1152dc17349c5aa.png)
-
-![Shape10](RackMultipart20230502-1-dox0hv_html_a3f7af61aaf0f7f8.gif)
-
-`sudo pdk validate
+![image](https://user-images.githubusercontent.com/37858762/235784014-764597ef-ddc2-4c3a-8201-91f3015f9a10.png)
 
 ### Step 4:  **Validate the module:
 
-cd to the **my\_module** directory of not already there, and pass the following command:
+`sudo pdk validate`
 
-![](RackMultipart20230502-1-dox0hv_html_ba5ac03871577538.png)
+cd to the **my_module** directory of not already there, and pass the following command:
+
+![image](https://user-images.githubusercontent.com/37858762/235784066-5fce1160-dc19-489e-87b0-f2bb9c8e58c8.png)
 
 ### Step 5: Now we need to designate which systems to apply the _my\_class_ class to by creating a site manifest; starting with an empty file _manifests/site.pp_.
 
@@ -102,27 +95,23 @@ _If the main manifest contains at least one node definition, it must have one fo
 
 Here we want to declare (essentially applying) _my\_class_ to all systems (nodes); we update _manifests/site.pp. Navigate to directory /etc/puppetlabs/code/environments/production/manifests and add file site.pp with below contents:_
 
+```
 node default {
-
-include my\_module::my\_class
-
+  include my_module::my_class
 }
+```
 
-![Shape11](RackMultipart20230502-1-dox0hv_html_ffdff3d5cc68bc17.gif)
-
-![](RackMultipart20230502-1-dox0hv_html_295d00ab2c41f2cf.png)
+![image](https://user-images.githubusercontent.com/37858762/235784185-a89f3ec4-53d3-4c39-acec-229a95b594f1.png)
 
 ### Step 6: While Puppet agent, by default, is configured to apply updates every 30 minutes (runinterval = 1800), we can expedite an update by executing the following command as root on a system with a connected Puppet agent. Go to agent server and run below command to pull the changes:
 
-`sudo /opt/puppetlabs/bin/puppet agent --test
+`sudo /opt/puppetlabs/bin/puppet agent --test`
 
-![Shape12](RackMultipart20230502-1-dox0hv_html_b3d41ee564b9fe0.gif)
-
-![](RackMultipart20230502-1-dox0hv_html_8006ac86acd35d86.png)
+![image](https://user-images.githubusercontent.com/37858762/235784225-1db2e795-9701-4eeb-90de-958840bd34cc.png)
 
 _The output indicates that it applied our class and we can confirm the result by executing:_
 
-![](RackMultipart20230502-1-dox0hv_html_8006ac86acd35d86.png)
+![image](https://user-images.githubusercontent.com/37858762/235784261-d40b6f56-ba00-4387-8448-11870c5f5d03.png)
 
 ### Step 7: Module's Main Class
 
@@ -132,51 +121,34 @@ The init.pp class, if used, is the main class of the module. This class's name m
 
 Let us start by creating a second class in the module; within the _modules/my\_module _folder, we execute:
 
-sudo pdk new class another\_class
+`sudo pdk new class another_class`
 
-![Shape13](RackMultipart20230502-1-dox0hv_html_a3f7af61aaf0f7f8.gif)
-
-![](RackMultipart20230502-1-dox0hv_html_e36319e6281cc4f4.png)
+![image](https://user-images.githubusercontent.com/37858762/235784298-ad45437b-f907-455f-955d-8bfd0a92b61b.png)
 
 ### Step 8: Update _modules/my\_module/manifests/another\_class.pp_ to:
 
+```
 # @summary A short summary of the purpose of this class
-
-#
-
 # A description of what this class does
-
-#
-
 # @example
+# include my_module::another_class
 
-# include my\_module::another\_class
-
-class my\_module::another\_class {
-
-file { '/tmp/another':
-
-ensure =\> 'present',
-
-content =\> 'Another Hello World',
-
-path =\> '/tmp/another',
-
+class my_module::another_class {
+  file { '/tmp/another':
+    ensure  => 'present',
+    content => 'Another Hello World',
+    path    => '/tmp/another',
+  }
 }
+```
 
-}
-
-![Shape14](RackMultipart20230502-1-dox0hv_html_b427dc157d77bfae.gif)
-
-![](RackMultipart20230502-1-dox0hv_html_54477b5e28fb3e57.png)
+![image](https://user-images.githubusercontent.com/37858762/235784355-3cf635f2-f3c7-42e2-89e9-e02caa54616e.png)
 
 ### Step 9: Next, we create the main class; within the modules/my\_module folder, we execute:
 
-`sudo pdk new class my\_module
+`sudo pdk new class my_module`
 
-![Shape15](RackMultipart20230502-1-dox0hv_html_a3f7af61aaf0f7f8.gif)
-
-![](RackMultipart20230502-1-dox0hv_html_cb8f4a06d4dcbd12.png)
+![image](https://user-images.githubusercontent.com/37858762/235784382-defed2e7-aa83-4f60-bdc2-9d2cdbdf859b.png)
 
 _ **Things to observe: _
 
@@ -184,49 +156,37 @@ _The class is named the same as the module; my\_module_
 
 _A file, modules/my\_module/manifests/init.pp, is created_
 
+_We now update modules/my\_module/manifests/init.pp to include the other two modules:_
+
+```
 # @summary A short summary of the purpose of this class
-
-#
-
 # A description of what this class does
-
-#
-
 # @example
+# include my_module
 
-# include my\_module
-
-class my\_module {
-
-include my\_module::my\_class
-
-include my\_module::another\_class
-
+class my_module {
+  include my_module::my_class
+  include my_module::another_class
 }
+```
 
-_We now update modules/my\_module/manifests/init.pp to include the other two modules: ![Shape16](RackMultipart20230502-1-dox0hv_html_68e817b8bb4a2a1e.gif)_
-
-![](RackMultipart20230502-1-dox0hv_html_fad2f5e95a6c3804.png)
+![image](https://user-images.githubusercontent.com/37858762/235784437-5d97de9b-a5ac-4ff8-b5a2-6391d12fc74e.png)
 
 ### Step 9: With this in place, we can now update _manifests/site.pp_ to. cd to directory /etc/puppetlabs/code/environments/production/manifests and update site.pp:
 
+```
 node default {
-
-include my\_module
-
+  include my_module
 }
+```
 
-![Shape17](RackMultipart20230502-1-dox0hv_html_194ca3aa1fbe7918.gif)
-
-![](RackMultipart20230502-1-dox0hv_html_e9b43eb440a1b32f.png)
+![image](https://user-images.githubusercontent.com/37858762/235784673-d6824bf7-602b-48bf-ab9d-90d5dae8bca5.png)
 
 ### Step 10: Pull the changes on agent:
 
-`sudo /opt/puppetlabs/bin/puppet agent --test
+`sudo /opt/puppetlabs/bin/puppet agent --test`
 
-![Shape18](RackMultipart20230502-1-dox0hv_html_b3d41ee564b9fe0.gif)
-
-![](RackMultipart20230502-1-dox0hv_html_85904200f00df0c7.png)
+![image](https://user-images.githubusercontent.com/37858762/235784701-b562f4e9-0aa1-410e-aa92-d94f48f96051.png)
 
 With these changes, the systems with a connected Puppet agent will now (after the 30-minute update) have two files, _module\_test.txt_ and _another_, in the _/tmp_ folder. Again, we can expedite this by manually triggering an update.
 
@@ -234,44 +194,35 @@ With these changes, the systems with a connected Puppet agent will now (after th
 
 _Packages are portable unit that can be shipped or published to puppet forge for distributed access:_
 
-`sudo pdk build
+`sudo pdk build`
 
-![Shape19](RackMultipart20230502-1-dox0hv_html_b3d41ee564b9fe0.gif)
-
-![](RackMultipart20230502-1-dox0hv_html_15868d9a77cf3309.png)
+![image](https://user-images.githubusercontent.com/37858762/235784736-1bb6d41e-73cb-45e6-b219-6c10adc046fe.png)
 
 ### Step 12: Next, we will install the module by referring the tar.gz file from the last output. Since, here we are installing on same puppet server, so we will remove the existing my\_module folder to /tmp:
 
-`sudo /opt/puppetlabs/bin/puppet module install /tmp/my\_module/pkg/cloudtrain-my\_module-0.1.0.tar.gz
+`sudo /opt/puppetlabs/bin/puppet module install /tmp/my\_module/pkg/cloudtrain-my\_module-0.1.0.tar.gz`
 
-![Shape20](RackMultipart20230502-1-dox0hv_html_3ec13ac8cce0e691.gif)
-
-![](RackMultipart20230502-1-dox0hv_html_f361ce879f568a34.png)
+![image](https://user-images.githubusercontent.com/37858762/235784767-756b69f0-d4cf-4dea-8686-3f263684aed2.png)
 
 ### Step 13: Finally, go to the main manifest file in **/etc/puppetlabs/code/environments/production/manifests/site.pp and** include the following code:
 
+```
 node default{
-
-include my\_module
-
+  include my_module
 }
+```
 
-![Shape21](RackMultipart20230502-1-dox0hv_html_ffdff3d5cc68bc17.gif)
+![image](https://user-images.githubusercontent.com/37858762/235784832-cede70ec-9c91-4fdf-92ae-4cea252163c0.png)
 
-![](RackMultipart20230502-1-dox0hv_html_e195eccfc1cfcb3f.png)
-
-**On Puppet Agent**
+### On Puppet Agent
 
 ### Step 14: Remove existing files in /tmp (if any) and execute the following command to pull the changes from installed module:
 
-![Shape22](RackMultipart20230502-1-dox0hv_html_beaa61d0757f040a.gif)
+`sudo /opt/puppetlabs/bin/puppet agent --test`
 
-`sudo /opt/puppetlabs/bin/puppet agent --test
-
-![](RackMultipart20230502-1-dox0hv_html_43207ad445592e4b.png)
+![image](https://user-images.githubusercontent.com/37858762/235784865-283a8d5b-44f2-403b-b96e-66b4d86cf870.png)
 
 ### Step 15: Verify the configuration change by checking /tmp/module\_test.txt and /tmp/another
 
-![](RackMultipart20230502-1-dox0hv_html_da866d2e94c2136.png)
+![image](https://user-images.githubusercontent.com/37858762/235784892-1db8690b-f2be-4acd-a409-6c8514f55d10.png)
 
-www.thecloudtrain.com
