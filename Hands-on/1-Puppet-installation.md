@@ -56,8 +56,6 @@ sudo apt-get install pdk
 
 ### Step 2: Run the following commands for installing Puppet Agent
 
-![Shape8](RackMultipart20230502-1-rwf2wg_html_7f48cd9252bca081.gif)
-
 ```
 sudo apt-get update
 sudo apt-get install wget
@@ -87,7 +85,7 @@ Or
 
 `sudo service puppetserver start`
 
-### Step 5:  **Memory Allocation: By default, Puppet Server is configured to use 2GB of RAM. However, if we want to experiment with Puppet Server on a VM, we can safely allocate as little as 512MB of memory. To change the Puppet Server memory allocation, we can edit the init config file, /etc/default/puppetserver:
+### Step 5: Memory Allocation: By default, Puppet Server is configured to use 2GB of RAM. However, if we want to experiment with Puppet Server on a VM, we can safely allocate as little as 512MB of memory. To change the Puppet Server memory allocation, we can edit the init config file, /etc/default/puppetserver:
 
 `sudo vim /etc/default/puppetserver`
 
