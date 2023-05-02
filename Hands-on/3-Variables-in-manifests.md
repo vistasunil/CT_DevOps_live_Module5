@@ -38,6 +38,8 @@
 
 `sudo vim site.pp`
 
+### Step 2: Enter the following text:
+
 ```
 node default{
   $text= "hello world\n"
@@ -47,8 +49,6 @@ node default{
   }
 }
 ```
-
-### Step 2: Enter the following text:
 
 ![image](https://user-images.githubusercontent.com/37858762/235778815-2f87eead-48f7-4a24-8c7b-dc443616be38.png)
 
