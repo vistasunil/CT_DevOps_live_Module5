@@ -62,4 +62,6 @@ node default{
 
 ### Step 2: Verify the installation and file by going to the browser, with agent's ip address. Also check /tmp/hello.txt
 
+`cat /tmp/helloworld.txt`
+
 ![image](https://user-images.githubusercontent.com/37858762/235778951-19452e27-54f2-4217-8d51-f274a7d13ba3.png)
