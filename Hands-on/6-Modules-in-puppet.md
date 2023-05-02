@@ -56,10 +56,10 @@ This will create two files; one of which we will be updating (_modules/my\_modul
 
 _A resource declaration adds a resource to the catalog and tells Puppet to manage that resource's state._
 
-_When Puppet applies the compiled catalog, it:_
-_1. Reads the actual state of the resource on the target system._
-_2. Compares the actual state to the desired state._
-_3. If necessary, changes the system to enforce the desired state._
+_When Puppet applies the compiled catalog, it:_ <br />
+_1. Reads the actual state of the resource on the target system._ <br />
+_2. Compares the actual state to the desired state._ <br />
+_3. If necessary, changes the system to enforce the desired state._ <br />
 _4. Logs any changes made to the resource. These changes appear in Puppet agent's log and in the run report, which is sent to the master and forwarded to any specified report processors._
 
 Here we create a resource that ensures that a file, _/tmp/module\_test.txt_, exists with the content 'This file is created by a module' on each of the target systems. We update the class, _modules/my\_module/manifests/my\_class.pp_, to the following:
