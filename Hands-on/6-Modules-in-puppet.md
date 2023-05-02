@@ -38,6 +38,8 @@
 
 `cd /etc/puppetlabs/code/environments/production/modules/`
 
+`sudo pdk new module my_module`
+
 ![image](https://user-images.githubusercontent.com/37858762/235783916-94556f03-7b8c-4557-9db2-5c41b7a49531.png)
 
 ### Step 2: You have successfully created the module. Change into the following directory **./my_module/manifests**. We next create a class in the module.
