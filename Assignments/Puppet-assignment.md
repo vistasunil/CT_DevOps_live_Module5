@@ -47,10 +47,10 @@
 * Create a Puppet Manifest in production environment to perform below actions on slave nodes:
   * Set a variable 'content' with some data to write in a file
   * Create a file using the data in **content** variable with below properties:
-    *. Name: /tmp/test\_vars.txt
-    *. Owner: ubuntu
-    *. Group: ubuntu
-    *. Permissions: 0644
+    * Name: /tmp/test_vars.txt
+    * Owner: ubuntu
+    * Group: ubuntu
+    * Permissions: 0644
   * Now, take an array type variable **packages** containing list of packages to be installed. List should contain apache, nginx
   * Use this variable to first uninstall the packages installed in exercise 1 using one resource only
   * Add one more package mysql to array **packages**
