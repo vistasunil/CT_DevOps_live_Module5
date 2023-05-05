@@ -67,13 +67,13 @@ sudo apt-get install puppet-agent
 
 ### Configuring Puppet Master
 
-### Step 3: Make changes to the hosts file which exists in /etc/hosts. And add the Puppet Master IP address along with the name "puppet"
+### Step 3: Make changes to the hosts file which exists in /etc/hosts. And add the Puppet Master IP address along with the name **puppet**
 
 `sudo vim /etc/hosts`
 
 ![image](https://user-images.githubusercontent.com/37858762/235773037-64757233-52f4-4769-9517-8e951babcbc9.png)
 
-### Step 4: Generate a root and intermediate signing CA for Puppet Server. **Switch to root account and run below command:
+### Step 4: Generate a root and intermediate signing CA for Puppet Server. Switch to **root** account and run below command:
 
 `puppetserver ca setup`
 
