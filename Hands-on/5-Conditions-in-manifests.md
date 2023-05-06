@@ -45,7 +45,7 @@
 ```
 node default{
   exec{'Conditions':
-    command => '/bin/echo "Apache is installed" \> /tmp/software.txt',
+    command => '/bin/echo "Apache is installed" > /tmp/software.txt',
     onlyif  => '/bin/which apache2',
   }
 }
@@ -82,7 +82,7 @@ node default{
 ```
 node default{
   exec{'Conditions':
-    command => '/bin/echo "php is not installed" \> /tmp/software.txt',
+    command => '/bin/echo "php is not installed" > /tmp/software.txt',
     unless  => '/bin/which php',
   }
 }
