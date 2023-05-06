@@ -41,7 +41,7 @@
 ```
 node default{
   package{'nginx':
-    ensure =\> installed,
+    ensure => installed,
   }
 
   file{'/tmp/status.txt':
