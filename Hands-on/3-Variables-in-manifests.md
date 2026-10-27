@@ -24,7 +24,7 @@
 
 ### Steps for Puppet Master
 
-### Step 1: Change the directory to **/etc/puppet/code/environments/production/manifests**
+### Step 1: Change the directory to **/etc/puppetlabs/code/environments/production/manifests**
 
 `cd /etc/puppetlabs/code/environments/production/manifests`
 

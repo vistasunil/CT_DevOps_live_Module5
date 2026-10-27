@@ -22,26 +22,45 @@
 
 ## PUPPET INSTALLATION
 
+> **Important:** Puppet 6 reached end of life in February 2021 and its repositories only
+> cover Ubuntu 18.04 (`bionic`). These labs now use **Puppet 8**, which is the supported
+> release for Ubuntu 26.04 LTS. Browse <https://apt.puppet.com/> and pick the release
+> package that matches your Ubuntu codename (`lsb_release -cs`). If a package for the
+> 26.04 codename is not published yet, the previous LTS codename (`noble`) package works,
+> because the Puppet packages are statically linked and codename-independent.
+
 ### Installing Puppet Master
 
 ### Step 1: Run the following commands for installing Puppet Master
 
 ```
 sudo apt-get update
-sudo apt-get install wget
-wget https://apt.puppetlabs.com/puppet6-release-bionic.deb
-sudo dpkg -i puppet6-release-bionic.deb
-sudo apt update
-sudo apt-get install puppetserver
+sudo apt-get install -y wget
+
+# Pick the release deb matching your Ubuntu codename
+CODENAME=$(lsb_release -cs)
+wget https://apt.puppet.com/puppet8-release-${CODENAME}.deb
+sudo dpkg -i puppet8-release-${CODENAME}.deb
+
+sudo apt-get update
+sudo apt-get install -y puppetserver
+```
+
+Puppet installs its binaries under `/opt/puppetlabs/bin`, so add them to your `PATH`:
+
+```
+echo 'export PATH=/opt/puppetlabs/bin:$PATH' | sudo tee /etc/profile.d/puppet.sh
+source /etc/profile.d/puppet.sh
 ```
 
 Installing Puppet Development Kit for modules development:
 
 ```
-wget https://apt.puppet.com/puppet-tools-release-bionic.deb
-sudo dpkg -i puppet-tools-release-bionic.deb
+CODENAME=$(lsb_release -cs)
+wget https://apt.puppet.com/puppet-tools-release-${CODENAME}.deb
+sudo dpkg -i puppet-tools-release-${CODENAME}.deb
 sudo apt-get update
-sudo apt-get install pdk
+sudo apt-get install -y pdk
 ```
 
 ### Installing Puppet Agent
@@ -50,11 +69,14 @@ sudo apt-get install pdk
 
 ```
 sudo apt-get update
-sudo apt-get install wget
-wget https://apt.puppetlabs.com/puppet6-release-bionic.deb
-sudo dpkg -i puppet6-release-bionic.deb
-sudo apt update
-sudo apt-get install puppet-agent
+sudo apt-get install -y wget
+
+CODENAME=$(lsb_release -cs)
+wget https://apt.puppet.com/puppet8-release-${CODENAME}.deb
+sudo dpkg -i puppet8-release-${CODENAME}.deb
+
+sudo apt-get update
+sudo apt-get install -y puppet-agent
 ```
 
 ### Configuring Puppet Master
